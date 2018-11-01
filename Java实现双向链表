@@ -1,0 +1,254 @@
+
+import javafx.beans.binding.ObjectBinding;
+
+interface ILink{
+    /**
+     * 链表增加节点操作
+     * @param data 节点内容
+     * @return
+     */
+    boolean add(Object data);
+
+    /**
+     * 判断指定内容节点在链表中是否存在
+     * @param data 要判断的内容
+     * @return 返回找到的节点索引
+     */
+    int contains(Object data);
+
+    /**
+     *删除指定内容节点
+     * @param data
+     * @return
+     */
+    boolean remove(Object data);
+
+    /**
+     * 根据指定下标修改节点内容
+     * @param index 索引下标
+     * @param newData 替换后的内容
+     * @return 替换之前的节点内容
+     */
+    Object set(int index, Object newData);
+
+    /**
+     * 根据指定下标返回节点内容
+     * @param index
+     * @return
+     */
+    Object get(int index);
+
+    /**
+     * 链表清空
+     */
+    void clear();
+
+    /**
+     * 将链表转为数组
+     * @return 返回所有节点内容
+     */
+    Object[] toArray();
+
+    /**
+     * 链表长度
+     * @return
+     */
+    int size();
+
+    /**
+     * 遍历链表
+     */
+    void printLink();
+
+}
+
+class LinkImpl implements ILink{
+    private Node head;
+    private Node last;
+    private int size;
+    private class Node{
+        private Node pre;
+        private Object data;
+        private Node next;
+        private Node(Node pre,Object data,Node next){
+            this.data = data;
+            this.next = next;
+            this.pre = pre;
+        }
+    }
+
+    @Override
+    public boolean add(Object data) {
+        Node temp = last;
+        Node newNode = new Node(temp,data,null);
+        last = newNode;
+        if(head == null){
+            head = newNode;
+        }else{
+            temp.next = last;
+        }
+        this.size++;
+        return true;
+
+    }
+
+    @Override
+    public int contains(Object data) {
+        int i = 0;
+        if(data == null){
+            for(Node temp = head; temp != null; temp = temp.next){
+                if(temp.data == null){
+                    return i;
+                }
+                i++;
+            }
+
+        }else{
+            for(Node temp = head; temp != null; temp = temp.next){
+                if(temp.data.equals(data)){
+                    return i;
+                }
+                i++;
+            }
+
+        }
+        return -1;
+    }
+
+    @Override
+    public boolean remove(Object data) {
+        if(data == null){
+            for(Node temp = head; temp != null; temp = temp.next){
+                if(temp.data == null){
+                    //删除
+                    unLink(temp);
+                    return true;
+                }
+            }
+        }else{
+            for(Node temp = head; temp != null; temp = temp.next){
+                if(temp.data.equals(data)){
+                    //删除
+                    unLink(temp);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public Object set(int index, Object newData) {
+        if(isLinkList(index)){
+            Node node = getIndexNode(index);
+            Object elementData = node.data;
+            node.data = newData;
+            return elementData;
+        }
+        return null;
+
+    }
+
+    @Override
+    public Object get(int index) {
+        if(isLinkList(index))
+            return getIndexNode(index).data;
+        return null;
+    }
+
+    @Override
+    public void clear() {
+        Node node;
+        for(Node temp = head; temp != null;temp = node){
+            temp.data = null;
+            node = temp.next;
+            temp.next = null;
+            temp.pre = null;
+            this.size--;
+        }
+    }
+
+    @Override
+    public Object[] toArray() {
+        Object[] Array = new Object[this.size];
+        int i = 0;
+        for(Node temp = head; temp != null; temp = temp.next){
+            Array[i++] = temp.data;
+        }
+        return Array;
+    }
+
+    @Override
+    public int size() {
+        return this.size;
+    }
+
+    @Override
+    public void printLink() {
+        Object[] Array = this.toArray();
+        for(Object temp: Array){
+            System.out.println(temp);
+        }
+    }
+
+    private boolean isLinkList(int index){
+        return index >= 0 && index <size;
+    }
+
+    private Node getIndexNode(int index){
+        Node temp = head;
+        if(index < (size >> 1)){
+            for(int i = 0;i < index; i++){
+                temp = temp.next;
+            }
+            return temp;
+        }else {
+            temp = last;
+            for (int i = size - 1; i > index; i--) {
+                temp = temp.pre;
+            }
+            return temp;
+        }
+    }
+
+    private void unLink(Node node){
+        Node pre = node.pre;
+        Node next = node.next;
+        if(pre == null){
+            head = next;
+        }else{
+            pre.next = next;
+            node.pre = null;
+        }
+        if(next == null){
+            last = pre;
+        }else{
+            next.pre = pre;
+            node.next = null;
+        }
+        node.data = null;
+        this.size--;
+    }
+}
+
+
+public class Test {
+    public static void main(String[] args){
+        ILink link = new LinkImpl();
+        link.add("火车头");
+        link.add("车厢1");
+        link.add("车厢2");
+        link.add(null);
+        link.add("车厢尾");
+        link.printLink();
+        System.out.println(link.size());
+        System.out.println(link.remove(null));
+        link.printLink();
+        System.out.println(link.size());
+        System.out.println(link.set(2,"abaka"));
+        System.out.println(link.get(2));
+        System.out.println(link.contains("车厢1"));
+        link.clear();
+        System.out.println(link.size());
+    }
+}
