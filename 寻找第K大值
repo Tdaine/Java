@@ -1,0 +1,49 @@
+/**
+ * 有一个整数数组，请你根据快速排序的思路，找出数组中第K大的数。
+ * 给定一个整数数组a,同时给定它的大小n和要找的K(K在1到n之间)，请返回第K大的数，保证答案存在
+ */
+
+
+
+class Finder{
+    public int findK(int[] a,int n,int k){
+        return findK(a,0,n - 1,k);
+    }
+
+    /**
+     * 利用快排的思想：
+     * 进行一次快排，将大的元素放在前面，小的元素放在后面，找到中间元素center
+     * 如果k刚好等于返回的center,直接返回
+     * 如果k在center的后面，接着对后半部分进行排序
+     * 如果k在center的前面，接着对前半部分进行排序
+     * 这样就可以去掉一半的元素，所以实际的时间复杂度是o(n);
+     * @param a
+     * @param left
+     * @param right
+     * @param k
+     * @return
+     */
+    public int findK(int[] a,int left,int right,int k){
+        int centre = sort(a,left,right);
+        if(k == centre - left + 1)
+            return a[centre];
+        else if(k > centre -left + 1)
+            return findK(a,centre+1,right,k - centre + left - 1);
+        else
+            return findK(a,left,centre - 1,k);
+    }
+
+    public int sort(int[] a,int left,int right){
+        int flag = a[left];
+        while (left < right){
+            while (left < right && a[right] <= flag)
+               right--;
+            a[left] = a[right];
+            while (left < right && a[left] >= flag)
+                left++;
+            a[right] = flag;
+        }
+        a[left] = flag;
+        return left;
+    }
+}
