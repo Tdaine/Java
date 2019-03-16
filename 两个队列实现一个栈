@@ -1,0 +1,28 @@
+import java.util.LinkedList;
+
+class StackBy2Queue{
+    LinkedList<Integer> queue1 = new LinkedList<>();
+    LinkedList<Integer> queue2 = new LinkedList<>();
+    public void push(int node){
+       if(!queue1.isEmpty())
+           queue1.add(node);
+       else
+           queue2.add(node);
+    }
+
+    public int pop(){
+        int ret = 0;
+        if (queue1.isEmpty()){
+            while (queue2.size() > 1){
+                queue1.add(queue2.pop());
+            }
+            ret =  queue2.pop();
+        }else if (queue2.isEmpty()){
+            while (queue1.size() > 1){
+                queue2.add(queue1.pop());
+            }
+            ret =  queue1.pop();
+        }
+        return ret;
+    }
+}
