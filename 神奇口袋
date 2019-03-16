@@ -1,0 +1,38 @@
+import java.util.Scanner;
+//    1. 有一个神奇的口袋，总的容积是40，用这个口袋可以变出一些物品，这些物品的总体积必须是40。John现
+//    在有n个想要得到的物品，每个物品的体积分别是a1，a2……an。John可以从这些物品中选择一些，如果选出
+//    的物体的总体积是40，那么利用这个神奇的口袋，John就可以得到这些物品。现在的问题是，John有多少种
+//     不同的选择物品的方式
+public class Test3_9{
+    static int[] weight;
+    static int count;
+    static int n ;
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        n = input.nextInt();
+        weight = new int[n];
+        for(int i = 0; i < n; i++){
+            weight[i] = input.nextInt();
+        }
+        pocket(40,n - 1);
+        System.out.println(count);
+    }
+
+    /**
+     * 思路：从后往前向口袋中装物品，知道口袋不能再装下一个物品，判断当前口袋状态是否满足40
+     * 满足就soungt++，否则返回，将最后一个元素去掉再放下一个元素
+     * 其实就是将自己的思维逻辑通过代码实现，这里采用的是从后往前算，这样能方便点
+     * @param s：剩余可装物品重量
+     * @param n：剩余可选物品数目
+     */
+    public static void pocket(int s, int n){
+        if(s == 0){
+            count++;
+            return;
+        }
+        if(s < 0 || n < 0)
+            return;
+        pocket(s - weight[n],n - 1);//从后往前往口袋中装，可装下就进行递归，
+        pocket(s, n - 1);//若装满weight[n]后不能再装其他的就去除n,装下一个
+    }
+}
