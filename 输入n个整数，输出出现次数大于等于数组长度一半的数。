@@ -1,0 +1,24 @@
+import java.util.Scanner;
+
+public class Test3_10{
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String str = scanner.nextLine();
+        char[] arr = str.toCharArray();
+        int n = str.length();
+        char flage = arr[0];
+        int count = 1;
+        for(int i = 1; i < n/2; i++){
+            char in = arr[2*i];
+            if(count == 0){
+                flage = in;
+                count++;
+            }
+            else if(flage == in)
+                count++;
+            else
+                count--;
+        }
+        System.out.println(flage);
+    }
+}
