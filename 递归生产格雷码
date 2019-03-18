@@ -1,0 +1,28 @@
+/**
+     * 在一组数的编码中，若任意两个相邻的代码只有一位二进制数不同， 则称这种编码为格雷码(Gray Code)，请 编写一个函数，使用递归的方法生成N位的格雷码。
+     * 给定一个整数n，请返回n位的格雷码，顺序为从0开始
+     *
+     * 思路：格雷码位数和个数是2的n次方关系
+     * 当n = 1时  格雷码：0 1
+     * 当n = 2时  格雷码：00 01 11 10
+     * 当n = 3时  格雷码：000 001 011 010 110 111 101 100
+     * 通过观察可以发现两边除去最高位两边是对称的，而最高位只有0 和 1
+     * 所以可以利用递归的思想用"0" + 返回字符串，"1" + 返回字符串，来表示出格雷码
+     * @param n
+     * @return
+     */
+    public static String[] getGray(int n) {
+        // write code here
+       String[] str = new String[(int)Math.pow(2,n)];
+       if(n == 1){
+           str[0] = "0";
+           str[1] = "1";
+           return str;
+       }
+       String[] temp = getGray(n - 1);
+       for(int i = 0; i < temp.length; i++){
+           str[i] = "0" + temp[i];
+           str[str.length - 1 - i] = "1" + temp[i];
+       }
+       return str;
+    }
