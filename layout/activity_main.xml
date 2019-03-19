@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/abaka"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textSize="30dp"
+        android:text="用户登录" />
+
+    <TextView
+        android:id="@+id/Usename1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="100dp"
+        android:textSize="20dp"
+        android:text="  用 户 名：" />
+
+    <TextView
+        android:id="@+id/Password1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Usename1"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="50dp"
+        android:textSize="20dp"
+        android:text="用户密码：" />
+
+    <EditText
+        android:id="@+id/inputUsename1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Usename1"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30dp"
+        android:layout_toRightOf="@+id/Usename1"
+         />
+
+    <EditText
+        android:id="@+id/inputPassword1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignBaseline="@id/Password1"
+        android:layout_marginRight="30dp"
+        android:layout_toRightOf="@id/Password1"
+         />
+
+    <Button
+        android:id="@+id/Sure1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="250dp"
+        android:layout_marginLeft="80dp"
+        android:text="确认" />
+
+    <Button
+        android:id="@+id/Register1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Sure1"
+        android:layout_toRightOf="@+id/Sure1"
+        android:layout_marginLeft="50dp"
+        android:text="注册" />
+
+
+</RelativeLayout>
