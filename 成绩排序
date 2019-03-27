@@ -1,0 +1,110 @@
+import java.util.*;
+
+class Student{
+    private String name;
+    private int score;
+
+    public Student(String name, int score) {
+        this.name = name;
+        this.score = score;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+}
+
+
+/**
+ * 查找和排序
+ * 题目：输入任意（用户，成绩）序列，可以获得成绩从高到低或从低到高的排列,相同成绩
+ * 都按先录入排列在前的规则处理。
+ * 例示：
+ * jack 70
+ * peter 96
+ * Tom 70
+ * smith 67
+ * 从高到低 成绩
+ * peter 96
+ * jack 70
+ * Tom 70
+ * smith 67
+ * 从低到高
+ * smith 67
+ * Tom 70
+ * jack 70
+ * peter 96
+ */
+public class Test3_26_day19 {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        int n = input.nextInt();
+        int way = input.nextInt();
+        List<Student> list = new ArrayList<>();
+        for (int i = 0; i < n; i++){
+            String name = input.next();
+            int age = input.nextInt();
+            list.add(new Student(name,age));
+        }
+
+        //降序
+        if(way == 0){
+            //Own methods
+//            for (int i = 0; i < list.size() - 1; i++){
+//                for (int j = 0; j < list.size() - i- 1; j++){
+//                    if (list.get(j).getScore() < list.get(j + 1).getScore()){
+//                        Student temp = new Student(list.get(j + 1).getName(),list.get(j + 1).getScore());
+//                        list.get(j + 1).setName(list.get(j).getName());
+//                        list.get(j + 1).setScore(list.get(j).getScore());
+//                        list.get(j).setName(temp.getName());
+//                        list.get(j).setScore(temp.getScore());
+//                    }
+//                }
+//            }
+            //Answer method
+            Collections.sort(list, new Comparator<Student>() {
+                @Override
+                public int compare(Student o1, Student o2) {
+                    return o2.getScore() - o1.getScore();
+                }
+            });
+
+        }else if(way == 1){
+            //Own methods
+//            for (int i = 0; i < list.size() - 1; i++){
+//                for (int j = 0; j < list.size() - i- 1; j++){
+//                    if (list.get(i).getScore() > list.get(i).getScore()){
+//                        Student temp = list.get(i);
+//                        list.get(i).setName(list.get(j).getName());
+//                        list.get(i).setScore(list.get(j).getScore());
+//                        list.get(j).setName(temp.getName());
+//                        list.get(i).setScore(temp.getScore());
+//                    }
+//                }
+//            }
+            //Answer method
+            Collections.sort(list, new Comparator<Student>() {
+                @Override
+                public int compare(Student o1, Student o2) {
+                    return o1.getScore() - o2.getScore();
+                }
+            });
+        }
+
+        for (Student l:list){
+            System.out.println(l.getName() + " " + l.getScore());
+        }
+    }
+    }
