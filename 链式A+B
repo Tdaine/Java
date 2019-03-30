@@ -1,0 +1,66 @@
+/*
+public class ListNode {
+    int val;
+    ListNode next = null;
+
+    ListNode(int val) {
+        this.val = val;
+    }
+}*/
+class Plus {
+    /**
+     * 有两个用链表表示的整数，每个结点包含一个数位。这些数位是反向存放的，也就是个位排在链表的首部。
+     * 编写函数对这两个整数求和，并用链表形式返回结果。
+     * 给定两个链表ListNode* A，ListNode* B，请返回A+B的结果(ListNode*)。
+     * 测试样例：
+     * {1,2,3},{3,2,1}
+     * 返回：{4,4,4}
+     * @param a
+     * @param b
+     * @return
+     */
+    public ListNode plusAB(ListNode a, ListNode b) {
+        // write code here
+        if (a == null || b == null)
+            return null;
+        int add = 0;
+        ListNode pNode = new ListNode(-1);
+        ListNode result = pNode;
+        while (a != null || b != null){
+            if (a != null && b != null){
+                pNode.next = new ListNode((a.val + b.val + add)%10);
+                add = (a.val + b.val + add) / 10;
+                pNode = pNode.next;
+                a = a.next;
+                b = b.next;
+            }else if (a != null){
+                pNode.next = new ListNode((a.val + add)%10);
+                add = (a.val + add) / 10;
+                pNode = pNode.next;
+                a = a.next;
+            }else if (b != null){
+                pNode.next = new ListNode((b.val + add) % 10);
+                add = (b.val + add) / 10;
+                pNode = pNode.next;
+                b = b.next;
+            }
+        }
+        if (add > 0)
+            pNode.next = new ListNode(add);
+        return result.next;
+    }
+
+    public static void main(String[] args) {
+        ListNode a = new ListNode(1);
+        a.next = new ListNode(2);
+        a.next.next = new ListNode(3);
+        ListNode b = new ListNode(3);
+        b.next = new ListNode(2);
+        b.next.next = new ListNode(1);
+        ListNode ret = new Plus().plusAB(a,b);
+        while (ret != null){
+            System.out.println(ret.val);
+            ret = ret.next;
+        }
+    }
+}
