@@ -1,0 +1,31 @@
+class Gift {
+
+    /**
+     * 数据可能有不存在超过红包一半的，这个时候就要输出0；即该金额的数目必须 大于 红包数一半，不能小于等于。
+     * 如果一个数出现次数超过一半了，排序过后，必然排在中间，则最后遍历整个数组查看是否符合
+     * @param gifts
+     * @param n
+     * @return
+     */
+    public int getValue(int[] gifts, int n) {
+        // write code here
+        int count = 0;
+        int flage = 0;
+        int num = 0;
+        for (int i = 0; i < n; i++){
+            if (count == 0)
+                flage = gifts[i];
+            if (gifts[i] == flage)
+                count++;
+            if (gifts[i] != flage)
+                count--;
+        }
+        for (int i = 0; i < n; i++){
+            if (flage == gifts[i])
+                num++;
+        }
+        if (count != 0 && num > n /2)
+            return flage;
+        else return 0;
+    }
+}
