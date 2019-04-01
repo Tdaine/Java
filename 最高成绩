@@ -1,0 +1,43 @@
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        while (input.hasNext()){
+            int studentCount = input.nextInt();
+            int operateCount = input.nextInt();
+            int[] score = new int[studentCount + 1];
+            for (int i = 1; i <= studentCount; i++){
+                score[i] = input.nextInt();
+            }
+            List<Integer> result = new ArrayList<>();
+            if (studentCount > 0 && studentCount <= 30000 && operateCount > 0 && operateCount < 5000){
+                while (operateCount-- > 0) {
+                    char opt = input.next().charAt(0);
+                    int a = input.nextInt();
+                    int b = input.nextInt();
+                    switch (opt) {
+                        case 'Q':
+                            int max = 0;
+                            if (a > b) {
+                                int temp = a;
+                                a = b;
+                                b = temp;
+                            }
+                            for (int i = a; i <= b; i++) {
+                                if (score[i] > max)
+                                    max = score[i];
+                            }
+                            result.add(max);
+                            break;
+                        case 'U':
+                            score[a] = b;
+                            break;
+                        default:
+                            break;
+
+                    }
+                }
+            }
+        for (int ret:result) {
+            System.out.println(ret);
+        }
+        }
+    }
