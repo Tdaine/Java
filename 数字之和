@@ -1,0 +1,32 @@
+import java.util.*;
+
+public class Test4_4_day26 {
+    /**
+     * 1. 对于给定的正整数 n，计算其十进制形式下所有位置数字之和，并计算其平方的各位数字之和。
+     * 输入描述：
+     * 每行输入数据包括一个正整数n(0<n<40000)
+     * 输出描述：
+     * 对于每个输入数据，计算其各位数字之和，以及其平方值的数字之和，输出在一行中，之间用一个空格分
+     * 隔，但行末不要有空格
+     */
+    
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        while (input.hasNext()){
+            int n = input.nextInt();
+            int count = num(n);
+            int square = num((int) Math.pow( n , 2));
+            System.out.println(count + " " + square);
+        }
+       
+
+    public static int num(int n){
+        if (n % 10 == 0 && n / 10 == 0)
+            return 0;
+        return n % 10 + num(n / 10);
+    }
+
+
+}
+
