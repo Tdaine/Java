@@ -1,0 +1,29 @@
+public class Test4_16_day37 {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        while (input.hasNext()){
+            int n = 0;
+            int count = input.nextInt();
+            if (count != 0){
+                n = exchange(count);
+                System.out.println(n);
+            }
+        }
+    }
+
+    //汽水瓶
+    public static int exchange(int count){
+        int ret = 0;
+        if (count == 1){
+            return ret = 1;
+        }
+        while (count > 2){
+            int temp = count / 3;
+            ret += temp;
+            count = count % 3 + temp;
+        }
+        if (count == 2)
+            return ret + 1;
+        return ret;
+    }
+}
