@@ -1,0 +1,53 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+/**
+ * 请编写一个方法，将字符串中的空格全部替换为“%20”。假定该字符串有足够的空间存放新增的字符，并且知
+ * 道字符串的真实长度(小于等于1000)，同时保证字符串由大小写的英文字母组成。
+ * 给定一个string iniString 为原始的串，以及串的长度 int len, 返回替换后的string。
+ * 测试样例：
+ * "Mr John Smith”,13
+ * 返回："Mr%20John%20Smith"
+ */
+class Replacement{
+    public String replaceSpace(String iniString,int length){
+       //开辟空间算法
+        if (iniString == null || iniString.length() <= 0)
+            return iniString;
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < iniString.length(); i++){
+            char c = iniString.charAt(i);
+            if (c == ' ')
+                sb.append("%20");
+            else
+                sb.append(c);
+        }
+        return sb.toString();
+    }
+
+    public String replaceSpaceTwo(String iniString,int length){
+        char[] charArr = iniString.toCharArray();
+        //计算出原始字符串长度
+        int originalLength = charArr.length;
+        int numberOfBlank = 0;
+        //计算空格个数
+        for (char item : charArr){
+            if (item == ' ')
+                numberOfBlank++;
+        }
+        //计算出新的字符串长度
+        int newLength = originalLength + numberOfBlank * 2;
+        char[] newCharArr = new char[newLength];
+        int indexNew = newLength - 1;
+        //将旧字符从后往前复制到新数组中
+        for (int i = originalLength - 1; i >= 0; i--){
+            if (charArr[i] == ' '){
+                newCharArr[indexNew--] = '0';
+                newCharArr[indexNew--] = '2';
+                newCharArr[indexNew--] = '%';
+            }else newCharArr[indexNew--] = charArr[i];
+        }
+        return String.valueOf(newCharArr);
+    }
+}
