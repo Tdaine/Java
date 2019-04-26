@@ -1,0 +1,69 @@
+/**
+ * 1. nowcoder有两盒（A、B）乒乓球，有红双喜的、有亚力亚的……现在他需要判别A盒是否包含了B盒中所有 的种类，
+ * 并且每种球的数量不少于B盒中的数量，该怎么办呢？ 
+ * 输入描述： 
+ * 输入有多组数据。 每组数据包含两个字符串A、B，代表A盒与B盒中的乒乓球，每个乒乓球用一个大写字母表示，
+ * 即相同类型的 乒乓球为相同的大写字母。 字符串长度不大于10000。 
+ * 输出描述： 
+ * 每一组输入对应一行输出：如果B盒中所有球的类型在A中都有，并且每种球的数量都不大于A，
+ * 则输 出“Yes”；
+ * 否则输出“No”。 
+ * 示例1: 
+ * 输入 
+ * ABCDFYE CDE 
+ * ABCDGEAS CDECDE 
+ * 输出 
+ * Yes
+ */
+public class Test4_26_day45 {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        while (input.hasNext()){
+
+            String arr = input.nextLine();
+            String arrA = arr.split(" ")[0];
+            String arrB = arr.split(" ")[1];
+            pingpang(arrA,arrB);
+        }
+    }
+
+    public static void pingpang2(String arrA,String arrB){
+        HashMap<String,Integer> hashMapA = new HashMap<>();
+        HashMap<String,Integer> hashMapB = new HashMap<>();
+        //初始化BoxA
+        for (int i = 0; i < arrA.length(); i++){
+            if (hashMapA.containsKey(arrA.charAt(i)+"")){
+                hashMapA.put(arrA.charAt(i)+"",hashMapA.get(arrA.charAt(i)) + 1);
+            }else {
+                hashMapA.put(arrA.charAt(i)+"",1);
+            }
+        }
+
+        //初始化BoxB
+        for (int i = 0; i < arrB.length(); i++){
+            if (hashMapB.containsKey(arrB.charAt(i) + "")){
+                hashMapB.put(arrB.charAt(i) + "",hashMapB.get(arrB.charAt(i)) + 1);
+            }else {
+                hashMapB.put(arrB.charAt(i) + "",1);
+            }
+        }
+
+        //遍历B,和A中的元素进行比较，flag表示是否是满足包含关系
+        int flag = 0;
+        for (String key:hashMapB.keySet()){
+            if (!hashMapA.containsKey(key)){
+                flag = 1;
+                break;
+            }else {
+                if (hashMapA.get(key) < hashMapB.get(key)){
+                    flag = 1;
+                    break;
+                }
+            }
+        }
+        if (flag == 1)
+            System.out.println("No");
+        else
+            System.out.println("Yes");
+    }
+}
