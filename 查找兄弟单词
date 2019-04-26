@@ -1,0 +1,44 @@
+/**
+ * 输入描述： 先输入字典中单词的个数，再输入n个单词作为字典单词。 输入一个单词，查找其在字典中兄弟单词的个数 再输入数字n
+ * 输出描述： 根据输入，输出查找到的兄弟单词的个数
+ * 示例1: 
+ * 输入 3 abc bca cab abc 1 
+ * 输出 2 bca
+ *
+ */
+class dictionaries{
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        while (input.hasNext()){
+            int num = input.nextInt();
+            String[] s = new String[num];
+            int count = 0;
+            for (int i = 0; i < num;i++){
+                s[i] = input.next();
+            }
+            String key = input.next();
+            char[] keychar = key.toCharArray();
+            Arrays.sort(keychar);
+            int no = input.nextInt();
+            ArrayList<String> list = new ArrayList<>();
+            for (int i = 0; i < num; i++){
+                int c = check(key,s[i],keychar);
+                count += c;
+                if (c == 1)
+                    list.add(s[i]);
+            }
+            System.out.println(count);
+            Collections.sort(list);
+            if (count >= no)
+                System.out.println(list.get(no - 1));
+        }
+    }
+    //进行兄弟单词的比较
+    private static int check(String key,String word,char[] keyChar){
+        if (key.equals(word) || key.length() != word.length())
+            return 0;
+        char[] wordChar = word.toCharArray();
+        Arrays.sort(wordChar);
+        return Arrays.equals(keyChar,wordChar) ? 1 : 0;
+    }
+}
